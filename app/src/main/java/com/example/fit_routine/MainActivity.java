@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,14 @@ public class MainActivity extends AppCompatActivity {
             if (exercise.isEmpty()) {
                 Toast.makeText(this, "Ingrese un ejercicio", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Ejercicio agregado", Toast.LENGTH_SHORT).show();
+                TextView newExercise = new TextView(this);
+                newExercise.setText(exercise);
+                newExercise.setTextSize(18);
+                newExercise.setPadding(0, 16, 0, 16);
+
+                exerciseContainer.addView(newExercise);
+
+                etExercise.setText("");
             }
         });
     }
