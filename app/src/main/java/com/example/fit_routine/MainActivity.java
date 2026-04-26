@@ -35,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         btnAddExercise = findViewById(R.id.btnAddExercise);
         exerciseContainer = findViewById(R.id.exerciseContainer);
 
+findViewById(R.id.btnNavProgreso).setOnClickListener(v ->
+                Toast.makeText(this, "Próximamente", Toast.LENGTH_SHORT).show());
+        findViewById(R.id.btnNavPerfil).setOnClickListener(v ->
+                Toast.makeText(this, "Próximamente", Toast.LENGTH_SHORT).show());
+
         btnAddExercise.setOnClickListener(v -> {
             String exercise = etExercise.getText().toString().trim();
             if (exercise.isEmpty()) {
