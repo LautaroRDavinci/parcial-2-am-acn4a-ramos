@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.TextView;
+import android.graphics.Color;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,19 @@ public class MainActivity extends AppCompatActivity {
                 newExercise.setText(exercise);
                 newExercise.setTextSize(18);
                 newExercise.setPadding(0, 16, 0, 16);
+
+                newExercise.setOnClickListener(view -> {
+                    TextView tv = (TextView) view;
+                    String currentText = tv.getText().toString();
+
+                    if (currentText.startsWith("✔ ")) {
+                        tv.setText(currentText.substring(2));
+                        tv.setTextColor(Color.BLACK);
+                    } else {
+                        tv.setText("✔ " + currentText);
+                        tv.setTextColor(Color.GRAY);
+                    }
+                });
 
                 exerciseContainer.addView(newExercise);
 
