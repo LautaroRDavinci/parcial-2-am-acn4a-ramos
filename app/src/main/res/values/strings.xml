@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Fit-Routine</string>
+    <string name="title_today_routine">Rutina de hoy</string>
+    <string name="subtitle_daily_exercises">Tus ejercicios diarios</string>
+    <string name="hint_exercise">Ej: Flexiones, Sentadillas…</string>
+    <string name="btn_add_exercise">Agregar ejercicio</string>
+    <string name="nav_rutina">Rutina</string>
+    <string name="nav_progreso">Progreso</string>
+    <string name="nav_perfil">Perfil</string>
+    <string name="msg_coming_soon">Próximamente</string>
+    <string name="msg_enter_exercise">Ingrese un ejercicio</string>
+    <string name="check_prefix">✔ </string>
 </resources>
