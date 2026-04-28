@@ -23,36 +23,41 @@
 
         <TextView
             android:id="@+id/tvTitle"
+            style="@style/TextStyle.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:layout_marginBottom="16dp"
             android:text="Rutina de hoy"
             android:textAlignment="center"
             android:textSize="36sp"
             android:textStyle="bold" />
+=======
+            android:layout_marginBottom="4dp"
+            android:text="@string/title_today_routine" />
+>>>>>>> 0640956e2337800c634c74075a1b6d7a521feae9
 
         <TextView
             android:id="@+id/tvSubtitle"
+            style="@style/TextStyle.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Tus ejercicios diarios"
-            android:textAlignment="center"
-            android:textSize="16sp" />
+            android:text="@string/subtitle_daily_exercises" />
 
         <EditText
             android:id="@+id/etExercise"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="Ej: Flexiones, Sentadillas..."
+            android:hint="@string/hint_exercise"
             android:inputType="text" />
 
         <Button
             android:id="@+id/btnAddExercise"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Agregar ejercicio" />
+            android:text="@string/btn_add_exercise" />
 
     </LinearLayout>
 
@@ -89,21 +94,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Rutina" />
+            android:text="@string/nav_rutina" />
 
         <Button
             android:id="@+id/btnNavProgreso"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Progreso" />
+            android:text="@string/nav_progreso" />
 
         <Button
             android:id="@+id/btnNavPerfil"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Perfil" />
+            android:text="@string/nav_perfil" />
 
     </LinearLayout>
 
