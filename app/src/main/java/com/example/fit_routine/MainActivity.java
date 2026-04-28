@@ -50,6 +50,13 @@ findViewById(R.id.btnNavProgreso).setOnClickListener(v ->
                 newExercise.setTextSize(18);
                 newExercise.setPadding(0, 16, 0, 16);
 
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 0, 0, 24);
+                newExercise.setLayoutParams(params);
+
                 newExercise.setOnClickListener(view -> {
                     TextView tv = (TextView) view;
                     String currentText = tv.getText().toString();
