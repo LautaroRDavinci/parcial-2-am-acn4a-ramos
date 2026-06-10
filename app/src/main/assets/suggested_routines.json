@@ -1,0 +1,80 @@
+{
+  "tren_superior": [
+    {
+      "name": "Flexiones con apoyo en rodillas",
+      "description": "Variante inicial de flexiones para desarrollar fuerza en el pecho y tríceps.",
+      "muscleGroup": "Tren superior",
+      "imageUrl": "https://example.com/pushups_knees.jpg",
+      "sets": 3,
+      "reps": 10
+    },
+    {
+      "name": "Remo con bandas elásticas",
+      "description": "Ejercicio suave para trabajar la espalda sin cargar peso excesivo.",
+      "muscleGroup": "Tren superior",
+      "imageUrl": "https://example.com/band_row.jpg",
+      "sets": 3,
+      "reps": 12
+    },
+    {
+      "name": "Press militar con mancuernas ligeras",
+      "description": "Fortalece los hombros manteniendo una postura estable.",
+      "muscleGroup": "Tren superior",
+      "imageUrl": "https://example.com/shoulder_press.jpg",
+      "sets": 3,
+      "reps": 10
+    }
+  ],
+  "tren_inferior": [
+    {
+      "name": "Sentadillas al cajón",
+      "description": "Sentadillas utilizando una silla o cajón para asegurar la técnica correcta.",
+      "muscleGroup": "Tren inferior",
+      "imageUrl": "https://example.com/box_squat.jpg",
+      "sets": 3,
+      "reps": 12
+    },
+    {
+      "name": "Puente de glúteos",
+      "description": "Elevación de cadera tumbado bocarriba, excelente para glúteos e isquiotibiales.",
+      "muscleGroup": "Tren inferior",
+      "imageUrl": "https://example.com/glute_bridge.jpg",
+      "sets": 3,
+      "reps": 15
+    },
+    {
+      "name": "Estocadas estáticas",
+      "description": "Paso hacia adelante bajando la rodilla trasera, sin desplazamiento.",
+      "muscleGroup": "Tren inferior",
+      "imageUrl": "https://example.com/lunges.jpg",
+      "sets": 3,
+      "reps": 10
+    }
+  ],
+  "core": [
+    {
+      "name": "Plancha apoyando antebrazos",
+      "description": "Mantener la postura recta apoyando antebrazos y puntas de los pies.",
+      "muscleGroup": "Core",
+      "imageUrl": "https://example.com/plank.jpg",
+      "sets": 3,
+      "reps": 30
+    },
+    {
+      "name": "Crunch abdominal corto",
+      "description": "Elevación corta del torso despegando apenas los hombros del suelo.",
+      "muscleGroup": "Core",
+      "imageUrl": "https://example.com/crunch.jpg",
+      "sets": 3,
+      "reps": 15
+    },
+    {
+      "name": "Elevación de piernas alternas",
+      "description": "Tumbado bocarriba, subir y bajar una pierna a la vez para cuidar la zona lumbar.",
+      "muscleGroup": "Core",
+      "imageUrl": "https://example.com/leg_raises.jpg",
+      "sets": 3,
+      "reps": 12
+    }
+  ]
+}
