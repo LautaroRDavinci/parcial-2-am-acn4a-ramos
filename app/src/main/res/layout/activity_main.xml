@@ -54,6 +54,13 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_add_exercise" />
 
+        <Button
+            android:id="@+id/btnSuggestedRoutine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Rutina sugerida" />
+
     </LinearLayout>
 
     <ScrollView

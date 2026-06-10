@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText etExercise;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         etExercise = findViewById(R.id.etExercise);
         btnAddExercise = findViewById(R.id.btnAddExercise);
         exerciseContainer = findViewById(R.id.exerciseContainer);
+        Button btnSuggestedRoutine = findViewById(R.id.btnSuggestedRoutine);
 
         findViewById(R.id.btnNavProgreso).setOnClickListener(v ->
                 Toast.makeText(this, R.string.msg_coming_soon, Toast.LENGTH_SHORT).show());
@@ -57,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
                 etExercise.setText("");
             }
         });
+
+        btnSuggestedRoutine.setOnClickListener(v -> 
+                Toast.makeText(this, "Elegí una rutina sugerida", Toast.LENGTH_SHORT).show()
+        );
 
         loadExercisesFromJson();
     }
