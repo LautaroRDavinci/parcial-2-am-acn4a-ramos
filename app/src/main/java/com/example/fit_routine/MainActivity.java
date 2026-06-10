@@ -14,6 +14,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.fit_routine.models.Exercise;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private EditText etExercise;
@@ -45,36 +53,77 @@ public class MainActivity extends AppCompatActivity {
             if (exercise.isEmpty()) {
                 Toast.makeText(this, R.string.msg_enter_exercise, Toast.LENGTH_SHORT).show();
             } else {
-                TextView newExercise = new TextView(this);
-                newExercise.setText(exercise);
-                newExercise.setTextSize(18);
-                newExercise.setPadding(0, 16, 0, 16);
-                newExercise.setTextColor(ContextCompat.getColor(this, R.color.text));
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-                params.setMargins(0, 0, 0, 24);
-                newExercise.setLayoutParams(params);
-
-                newExercise.setOnClickListener(view -> {
-                    TextView tv = (TextView) view;
-                    String currentText = tv.getText().toString();
-                    String checkPrefix = getString(R.string.check_prefix);
-
-                    if (currentText.startsWith(checkPrefix)) {
-                        tv.setText(currentText.substring(checkPrefix.length()));
-                        tv.setTextColor(ContextCompat.getColor(this, R.color.text));
-                    } else {
-                        tv.setText(checkPrefix + currentText);
-                        tv.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
-                    }
-                });
-
-                exerciseContainer.addView(newExercise);
+                addExerciseView(exercise);
                 etExercise.setText("");
             }
         });
+
+        loadExercisesFromJson();
+    }
+
+    private void addExerciseView(String exerciseName) {
+        TextView newExercise = new TextView(this);
+        newExercise.setText(exerciseName);
+        newExercise.setTextSize(18);
+        newExercise.setPadding(0, 16, 0, 16);
+        newExercise.setTextColor(ContextCompat.getColor(this, R.color.text));
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(0, 0, 0, 24);
+        newExercise.setLayoutParams(params);
+
+        newExercise.setOnClickListener(view -> {
+            TextView tv = (TextView) view;
+            String currentText = tv.getText().toString();
+            String checkPrefix = getString(R.string.check_prefix);
+
+            if (currentText.startsWith(checkPrefix)) {
+                tv.setText(currentText.substring(checkPrefix.length()));
+                tv.setTextColor(ContextCompat.getColor(this, R.color.text));
+            } else {
+                tv.setText(checkPrefix + currentText);
+                tv.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
+            }
+        });
+
+        exerciseContainer.addView(newExercise);
+    }
+
+    private void loadExercisesFromJson() {
+        new Thread(() -> {
+            try {
+                InputStream is = getAssets().open("exercises.json");
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+                String json = new String(buffer, "UTF-8");
+
+                JSONArray jsonArray = new JSONArray(json);
+                List<Exercise> exercises = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    String name = obj.getString("name");
+                    String desc = obj.getString("description");
+                    String muscle = obj.getString("muscleGroup");
+                    String img = obj.getString("imageUrl");
+                    exercises.add(new Exercise(name, desc, muscle, img));
+                }
+
+                runOnUiThread(() -> {
+                    for (Exercise ex : exercises) {
+                        addExerciseView(ex.getName());
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() ->
+                        Toast.makeText(MainActivity.this, "Error al cargar ejercicios", Toast.LENGTH_SHORT).show()
+                );
+            }
+        }).start();
     }
 }

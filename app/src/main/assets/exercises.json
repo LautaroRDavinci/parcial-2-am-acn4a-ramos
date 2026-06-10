@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Press de Banca",
+    "description": "Ejercicio compuesto para el pecho.",
+    "muscleGroup": "Tren superior",
+    "imageUrl": "https://example.com/press.jpg"
+  },
+  {
+    "name": "Sentadillas Libres",
+    "description": "Ejercicio fundamental para el tren inferior.",
+    "muscleGroup": "Tren inferior",
+    "imageUrl": "https://example.com/squat.jpg"
+  },
+  {
+    "name": "Dominadas",
+    "description": "Ejercicio de tracción para la espalda.",
+    "muscleGroup": "Tren superior",
+    "imageUrl": "https://example.com/pullup.jpg"
+  },
+  {
+    "name": "Plancha Abdominal",
+    "description": "Ejercicio isométrico para fortalecer la zona media.",
+    "muscleGroup": "Core",
+    "imageUrl": "https://example.com/plank.jpg"
+  }
+]
