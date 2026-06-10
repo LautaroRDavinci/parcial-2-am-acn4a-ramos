@@ -61,6 +61,34 @@
             android:layout_marginTop="8dp"
             android:text="Rutina sugerida" />
 
+        <LinearLayout
+            android:id="@+id/suggestedOptionsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/btnTrenSuperior"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tren superior" />
+
+            <Button
+                android:id="@+id/btnTrenInferior"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tren inferior" />
+
+            <Button
+                android:id="@+id/btnCore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Core" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <ScrollView

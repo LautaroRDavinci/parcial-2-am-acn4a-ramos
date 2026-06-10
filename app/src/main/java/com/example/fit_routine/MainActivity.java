@@ -44,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         btnAddExercise = findViewById(R.id.btnAddExercise);
         exerciseContainer = findViewById(R.id.exerciseContainer);
         Button btnSuggestedRoutine = findViewById(R.id.btnSuggestedRoutine);
+        LinearLayout suggestedOptionsContainer = findViewById(R.id.suggestedOptionsContainer);
+        Button btnTrenSuperior = findViewById(R.id.btnTrenSuperior);
+        Button btnTrenInferior = findViewById(R.id.btnTrenInferior);
+        Button btnCore = findViewById(R.id.btnCore);
 
         findViewById(R.id.btnNavProgreso).setOnClickListener(v ->
                 Toast.makeText(this, R.string.msg_coming_soon, Toast.LENGTH_SHORT).show());
@@ -60,9 +64,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnSuggestedRoutine.setOnClickListener(v -> 
-                Toast.makeText(this, "Elegí una rutina sugerida", Toast.LENGTH_SHORT).show()
-        );
+        btnSuggestedRoutine.setOnClickListener(v -> {
+            if (suggestedOptionsContainer.getVisibility() == android.view.View.GONE) {
+                suggestedOptionsContainer.setVisibility(android.view.View.VISIBLE);
+            } else {
+                suggestedOptionsContainer.setVisibility(android.view.View.GONE);
+            }
+        });
+
+        // We can optionally add temporary toasts to the new buttons
+        btnTrenSuperior.setOnClickListener(v -> Toast.makeText(this, "Cargando Tren superior...", Toast.LENGTH_SHORT).show());
+        btnTrenInferior.setOnClickListener(v -> Toast.makeText(this, "Cargando Tren inferior...", Toast.LENGTH_SHORT).show());
+        btnCore.setOnClickListener(v -> Toast.makeText(this, "Cargando Core...", Toast.LENGTH_SHORT).show());
 
         loadExercisesFromJson();
     }
