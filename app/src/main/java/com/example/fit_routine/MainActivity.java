@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                 runOnUiThread(() -> {
                     for (Exercise ex : exercises) {
-                        addExerciseView(ex.getName());
+                        addExerciseViewFromJson(ex);
                     }
                 });
             } catch (Exception e) {
@@ -125,5 +125,43 @@ public class MainActivity extends AppCompatActivity {
                 );
             }
         }).start();
+    }
+
+    private void addExerciseViewFromJson(Exercise exercise) {
+        LinearLayout itemLayout = new LinearLayout(this);
+        itemLayout.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(0, 0, 0, 32);
+        itemLayout.setLayoutParams(params);
+        itemLayout.setPadding(32, 32, 32, 32);
+        itemLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+
+        TextView tvName = new TextView(this);
+        tvName.setText(exercise.getName());
+        tvName.setTextSize(18);
+        tvName.setTextColor(ContextCompat.getColor(this, R.color.text));
+        tvName.setTypeface(null, android.graphics.Typeface.BOLD);
+
+        TextView tvMuscle = new TextView(this);
+        tvMuscle.setText(exercise.getMuscleGroup());
+        tvMuscle.setTextSize(14);
+        tvMuscle.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
+        tvMuscle.setPadding(0, 8, 0, 16);
+
+        Button btnDetail = new Button(this);
+        btnDetail.setText("Ver detalle");
+        btnDetail.setOnClickListener(v -> {
+            // Do nothing yet
+        });
+
+        itemLayout.addView(tvName);
+        itemLayout.addView(tvMuscle);
+        itemLayout.addView(btnDetail);
+
+        exerciseContainer.addView(itemLayout);
     }
 }
