@@ -58,8 +58,10 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("completed_exercises", completedExercises);
             startActivity(intent);
         });
-        findViewById(R.id.btnNavPerfil).setOnClickListener(v ->
-                Toast.makeText(this, R.string.msg_coming_soon, Toast.LENGTH_SHORT).show());
+        findViewById(R.id.btnNavPerfil).setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(this, ProfileActivity.class);
+            startActivity(intent);
+        });
 
         btnAddExercise.setOnClickListener(v -> {
             String exercise = etExercise.getText().toString().trim();
