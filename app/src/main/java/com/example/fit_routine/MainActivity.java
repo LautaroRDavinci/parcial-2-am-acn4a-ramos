@@ -50,8 +50,27 @@ public class MainActivity extends AppCompatActivity {
         Button btnTrenInferior = findViewById(R.id.btnTrenInferior);
         Button btnCore = findViewById(R.id.btnCore);
 
-        findViewById(R.id.btnNavProgreso).setOnClickListener(v ->
-                Toast.makeText(this, R.string.msg_coming_soon, Toast.LENGTH_SHORT).show());
+        findViewById(R.id.btnNavProgreso).setOnClickListener(v -> {
+            int total = exerciseContainer.getChildCount();
+            int completed = 0;
+            String checkPrefix = getString(R.string.check_prefix);
+            for (int i = 0; i < total; i++) {
+                android.view.View child = exerciseContainer.getChildAt(i);
+                if (child instanceof TextView) {
+                    TextView tv = (TextView) child;
+                    if (tv.getText().toString().startsWith(checkPrefix)) {
+                        completed++;
+                    }
+                }
+            }
+            int pending = total - completed;
+
+            android.content.Intent intent = new android.content.Intent(this, ProgressActivity.class);
+            intent.putExtra("total_exercises", total);
+            intent.putExtra("completed_exercises", completed);
+            intent.putExtra("pending_exercises", pending);
+            startActivity(intent);
+        });
         findViewById(R.id.btnNavPerfil).setOnClickListener(v ->
                 Toast.makeText(this, R.string.msg_coming_soon, Toast.LENGTH_SHORT).show());
 
