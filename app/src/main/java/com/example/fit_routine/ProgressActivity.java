@@ -32,7 +32,7 @@ public class ProgressActivity extends AppCompatActivity {
         // Receive extras from Intent
         int total = getIntent().getIntExtra("total_exercises", 0);
         int completed = getIntent().getIntExtra("completed_exercises", 0);
-        int pending = getIntent().getIntExtra("pending_exercises", 0);
+        int pending = total - completed;
 
         tvTotalExercises.setText("Ejercicios totales: " + total);
         tvCompletedExercises.setText("Ejercicios completados: " + completed);

@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnAddExercise;
     private LinearLayout exerciseContainer;
     private List<Exercise> loadedRoutine = new ArrayList<>();
+    private int totalExercises = 0;
+    private int completedExercises = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,24 +53,9 @@ public class MainActivity extends AppCompatActivity {
         Button btnCore = findViewById(R.id.btnCore);
 
         findViewById(R.id.btnNavProgreso).setOnClickListener(v -> {
-            int total = exerciseContainer.getChildCount();
-            int completed = 0;
-            String checkPrefix = getString(R.string.check_prefix);
-            for (int i = 0; i < total; i++) {
-                android.view.View child = exerciseContainer.getChildAt(i);
-                if (child instanceof TextView) {
-                    TextView tv = (TextView) child;
-                    if (tv.getText().toString().startsWith(checkPrefix)) {
-                        completed++;
-                    }
-                }
-            }
-            int pending = total - completed;
-
             android.content.Intent intent = new android.content.Intent(this, ProgressActivity.class);
-            intent.putExtra("total_exercises", total);
-            intent.putExtra("completed_exercises", completed);
-            intent.putExtra("pending_exercises", pending);
+            intent.putExtra("total_exercises", totalExercises);
+            intent.putExtra("completed_exercises", completedExercises);
             startActivity(intent);
         });
         findViewById(R.id.btnNavPerfil).setOnClickListener(v ->
@@ -100,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addExerciseView(String exerciseName) {
+        totalExercises++;
         TextView newExercise = new TextView(this);
         newExercise.setText(exerciseName);
         newExercise.setTextSize(18);
@@ -121,9 +109,11 @@ public class MainActivity extends AppCompatActivity {
             if (currentText.startsWith(checkPrefix)) {
                 tv.setText(currentText.substring(checkPrefix.length()));
                 tv.setTextColor(ContextCompat.getColor(this, R.color.text));
+                completedExercises--;
             } else {
                 tv.setText(checkPrefix + currentText);
                 tv.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
+                completedExercises++;
             }
         });
 
@@ -168,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addExerciseViewFromJson(Exercise exercise) {
+        totalExercises++;
         LinearLayout itemLayout = new LinearLayout(this);
         itemLayout.setOrientation(LinearLayout.VERTICAL);
 
@@ -265,6 +256,8 @@ public class MainActivity extends AppCompatActivity {
                     loadedRoutine.addAll(routine);
                     
                     exerciseContainer.removeAllViews();
+                    totalExercises = 0;
+                    completedExercises = 0;
                     for (Exercise ex : loadedRoutine) {
                         addExerciseViewFromJson(ex);
                     }
