@@ -83,6 +83,13 @@
             android:layout_marginBottom="16dp"
             android:text="Sumar entrenamiento" />
 
+        <Button
+            android:id="@+id/btnResetProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Reiniciar progreso" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"

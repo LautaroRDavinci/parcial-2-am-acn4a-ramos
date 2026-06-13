@@ -3,6 +3,7 @@ package com.example.fit_routine;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +15,7 @@ public class ProgressActivity extends AppCompatActivity {
     private TextView tvCompletionPercentage;
     private TextView tvWeeklyGoal;
     private Button btnIncrementWorkout;
+    private Button btnResetProgress;
     private Button btnBack;
 
     private int workoutCount = 0;
@@ -29,6 +31,7 @@ public class ProgressActivity extends AppCompatActivity {
         tvCompletionPercentage = findViewById(R.id.tvCompletionPercentage);
         tvWeeklyGoal = findViewById(R.id.tvWeeklyGoal);
         btnIncrementWorkout = findViewById(R.id.btnIncrementWorkout);
+        btnResetProgress = findViewById(R.id.btnResetProgress);
         btnBack = findViewById(R.id.btnBack);
 
         // Receive extras from Intent
@@ -51,6 +54,12 @@ public class ProgressActivity extends AppCompatActivity {
         btnIncrementWorkout.setOnClickListener(v -> {
             workoutCount++;
             updateWeeklyGoalText();
+        });
+
+        btnResetProgress.setOnClickListener(v -> {
+            workoutCount = 0;
+            updateWeeklyGoalText();
+            Toast.makeText(this, "Progreso reiniciado", Toast.LENGTH_SHORT).show();
         });
 
         btnBack.setOnClickListener(v -> finish());
