@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         });
         findViewById(R.id.btnNavPerfil).setOnClickListener(v -> {
             android.content.Intent intent = new android.content.Intent(this, ProfileActivity.class);
+            intent.putExtra("user_name", "Lautaro");
+            intent.putExtra("user_goal", "Ganar fuerza y constancia");
+            intent.putExtra("user_level", "Principiante");
             startActivity(intent);
         });
 

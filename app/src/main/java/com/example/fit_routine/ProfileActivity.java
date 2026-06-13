@@ -26,6 +26,15 @@ public class ProfileActivity extends AppCompatActivity {
         btnEditGoal = findViewById(R.id.btnEditGoal);
         btnBack = findViewById(R.id.btnBack);
 
+        // Receive extras from Intent
+        String name = getIntent().getStringExtra("user_name");
+        String goal = getIntent().getStringExtra("user_goal");
+        String level = getIntent().getStringExtra("user_level");
+
+        tvUserName.setText("Usuario: " + (name != null ? name : ""));
+        tvGoal.setText("Objetivo: " + (goal != null ? goal : ""));
+        tvLevel.setText("Nivel: " + (level != null ? level : ""));
+
         btnEditGoal.setOnClickListener(v -> 
             Toast.makeText(this, R.string.msg_coming_soon, Toast.LENGTH_SHORT).show()
         );
