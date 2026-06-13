@@ -5,12 +5,20 @@ public class Exercise {
     private String description;
     private String muscleGroup;
     private String imageUrl;
+    private Integer sets;
+    private Integer reps;
 
     public Exercise(String name, String description, String muscleGroup, String imageUrl) {
+        this(name, description, muscleGroup, imageUrl, null, null);
+    }
+
+    public Exercise(String name, String description, String muscleGroup, String imageUrl, Integer sets, Integer reps) {
         this.name = name;
         this.description = description;
         this.muscleGroup = muscleGroup;
         this.imageUrl = imageUrl;
+        this.sets = sets;
+        this.reps = reps;
     }
 
     public String getName() {
@@ -27,5 +35,13 @@ public class Exercise {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public Integer getSets() {
+        return sets;
+    }
+
+    public Integer getReps() {
+        return reps;
     }
 }

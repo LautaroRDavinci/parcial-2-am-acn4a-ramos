@@ -129,7 +129,9 @@ public class MainActivity extends AppCompatActivity {
                     String desc = obj.getString("description");
                     String muscle = obj.getString("muscleGroup");
                     String img = obj.getString("imageUrl");
-                    exercises.add(new Exercise(name, desc, muscle, img));
+                    Integer sets = obj.has("sets") ? obj.getInt("sets") : null;
+                    Integer reps = obj.has("reps") ? obj.getInt("reps") : null;
+                    exercises.add(new Exercise(name, desc, muscle, img, sets, reps));
                 }
 
                 runOnUiThread(() -> {
@@ -179,6 +181,17 @@ public class MainActivity extends AppCompatActivity {
 
         itemLayout.addView(tvName);
         itemLayout.addView(tvMuscle);
+
+        if (exercise.getSets() != null && exercise.getReps() != null) {
+            tvMuscle.setPadding(0, 8, 0, 4);
+            TextView tvSetsReps = new TextView(this);
+            tvSetsReps.setText("Series: " + exercise.getSets() + " - Repeticiones: " + exercise.getReps());
+            tvSetsReps.setTextSize(14);
+            tvSetsReps.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
+            tvSetsReps.setPadding(0, 0, 0, 16);
+            itemLayout.addView(tvSetsReps);
+        }
+
         itemLayout.addView(btnDetail);
 
         exerciseContainer.addView(itemLayout);
