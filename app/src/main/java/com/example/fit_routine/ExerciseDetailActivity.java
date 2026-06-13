@@ -1,17 +1,11 @@
 package com.example.fit_routine;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class ExerciseDetailActivity extends AppCompatActivity {
 
@@ -38,7 +32,6 @@ public class ExerciseDetailActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("exercise_name");
         String description = getIntent().getStringExtra("exercise_description");
         String muscleGroup = getIntent().getStringExtra("exercise_muscle_group");
-        String imageUrl = getIntent().getStringExtra("exercise_image_url");
 
         tvExerciseName.setText(name != null ? name : "");
         tvDescription.setText(description != null ? description : "");
@@ -54,25 +47,5 @@ public class ExerciseDetailActivity extends AppCompatActivity {
         }
 
         btnBack.setOnClickListener(v -> finish());
-
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            loadImageFromUrl(imageUrl);
-        }
-    }
-
-    private void loadImageFromUrl(String urlString) {
-        new Thread(() -> {
-            try {
-                URL url = new URL(urlString);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                runOnUiThread(() -> ivExerciseImage.setImageBitmap(myBitmap));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 }

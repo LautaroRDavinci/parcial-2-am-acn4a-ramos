@@ -176,7 +176,16 @@ public class MainActivity extends AppCompatActivity {
         Button btnDetail = new Button(this);
         btnDetail.setText("Ver detalle");
         btnDetail.setOnClickListener(v -> {
-            // Do nothing yet
+            android.content.Intent intent = new android.content.Intent(MainActivity.this, ExerciseDetailActivity.class);
+            intent.putExtra("exercise_name", exercise.getName());
+            intent.putExtra("exercise_description", exercise.getDescription());
+            intent.putExtra("exercise_muscle_group", exercise.getMuscleGroup());
+            intent.putExtra("exercise_image_url", exercise.getImageUrl());
+            if (exercise.getSets() != null && exercise.getReps() != null) {
+                intent.putExtra("exercise_sets", exercise.getSets());
+                intent.putExtra("exercise_reps", exercise.getReps());
+            }
+            startActivity(intent);
         });
 
         itemLayout.addView(tvName);
