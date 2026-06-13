@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etExercise;
     private Button btnAddExercise;
     private LinearLayout exerciseContainer;
+    private List<Exercise> loadedRoutine = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +73,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // We can optionally add temporary toasts to the new buttons
-        btnTrenSuperior.setOnClickListener(v -> Toast.makeText(this, "Cargando Tren superior...", Toast.LENGTH_SHORT).show());
-        btnTrenInferior.setOnClickListener(v -> Toast.makeText(this, "Cargando Tren inferior...", Toast.LENGTH_SHORT).show());
-        btnCore.setOnClickListener(v -> Toast.makeText(this, "Cargando Core...", Toast.LENGTH_SHORT).show());
+        btnTrenSuperior.setOnClickListener(v -> loadSuggestedRoutine("tren_superior"));
+        btnTrenInferior.setOnClickListener(v -> loadSuggestedRoutine("tren_inferior"));
+        btnCore.setOnClickListener(v -> loadSuggestedRoutine("core"));
 
         loadExercisesFromJson();
     }
@@ -195,5 +195,54 @@ public class MainActivity extends AppCompatActivity {
         itemLayout.addView(btnDetail);
 
         exerciseContainer.addView(itemLayout);
+    }
+
+    private void loadSuggestedRoutine(String category) {
+        new Thread(() -> {
+            try {
+                InputStream is = getAssets().open("suggested_routines.json");
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+                String json = new String(buffer, "UTF-8");
+
+                JSONObject jsonObject = new JSONObject(json);
+                JSONArray jsonArray = jsonObject.getJSONArray(category);
+                List<Exercise> routine = new ArrayList<>();
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    String name = obj.getString("name");
+                    String desc = obj.getString("description");
+                    String muscle = obj.getString("muscleGroup");
+                    String img = obj.getString("imageUrl");
+                    Integer sets = obj.has("sets") ? obj.getInt("sets") : null;
+                    Integer reps = obj.has("reps") ? obj.getInt("reps") : null;
+                    routine.add(new Exercise(name, desc, muscle, img, sets, reps));
+                }
+
+                String displayName;
+                if ("tren_superior".equals(category)) {
+                    displayName = "Tren superior";
+                } else if ("tren_inferior".equals(category)) {
+                    displayName = "Tren inferior";
+                } else {
+                    displayName = "Core";
+                }
+
+                final String finalDisplayName = displayName;
+                runOnUiThread(() -> {
+                    loadedRoutine.clear();
+                    loadedRoutine.addAll(routine);
+                    Toast.makeText(MainActivity.this, "Rutina cargada: " + finalDisplayName, Toast.LENGTH_SHORT).show();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() ->
+                        Toast.makeText(MainActivity.this, "Error al cargar la rutina sugerida", Toast.LENGTH_SHORT).show()
+                );
+            }
+        }).start();
     }
 }
