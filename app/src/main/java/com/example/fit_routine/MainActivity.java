@@ -235,7 +235,13 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     loadedRoutine.clear();
                     loadedRoutine.addAll(routine);
-                    Toast.makeText(MainActivity.this, "Rutina cargada: " + finalDisplayName, Toast.LENGTH_SHORT).show();
+                    
+                    exerciseContainer.removeAllViews();
+                    for (Exercise ex : loadedRoutine) {
+                        addExerciseViewFromJson(ex);
+                    }
+                    
+                    Toast.makeText(MainActivity.this, "Rutina sugerida cargada", Toast.LENGTH_SHORT).show();
                 });
             } catch (Exception e) {
                 e.printStackTrace();
