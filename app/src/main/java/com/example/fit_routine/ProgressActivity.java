@@ -43,11 +43,15 @@ public class ProgressActivity extends AppCompatActivity {
         tvCompletedExercises.setText("Ejercicios completados: " + completed);
         tvPendingExercises.setText("Ejercicios pendientes: " + pending);
 
-        int percentage = 0;
-        if (total > 0) {
-            percentage = (completed * 100) / total;
+        if (total == 0) {
+            tvCompletionPercentage.setText("Agregá ejercicios para ver tu progreso");
+        } else if (completed == total) {
+            tvCompletionPercentage.setText("Rutina completada");
+            Toast.makeText(this, "Rutina completada", Toast.LENGTH_SHORT).show();
+        } else {
+            int percentage = (completed * 100) / total;
+            tvCompletionPercentage.setText("Progreso actual: " + percentage + "%");
         }
-        tvCompletionPercentage.setText("Progreso actual: " + percentage + "%");
 
         updateWeeklyGoalText();
 
