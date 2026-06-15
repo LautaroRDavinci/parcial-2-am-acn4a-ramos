@@ -119,22 +119,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="@dimen/nav_bar_padding"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <Button
             android:id="@+id/btnNavProgreso"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/Widget.FitRoutine.NavButton"
             android:text="@string/nav_progreso" />
 
         <Button
             android:id="@+id/btnNavPerfil"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/Widget.FitRoutine.NavButton"
             android:text="@string/nav_perfil" />
 
     </LinearLayout>
