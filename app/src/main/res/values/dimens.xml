@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Standard margins and paddings -->
+    <dimen name="spacing_tiny">8dp</dimen>
+    <dimen name="spacing_small">12dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_xlarge">32dp</dimen>
+    
+    <!-- Specific component dimensions -->
+    <dimen name="exercise_image_height">220dp</dimen>
+    <dimen name="exercise_item_margin">24dp</dimen>
+    <dimen name="routine_item_margin">32dp</dimen>
+    <dimen name="routine_item_padding">32dp</dimen>
+
+    <!-- Font sizes -->
+    <dimen name="font_title_large">36sp</dimen>
+    <dimen name="font_title_medium">28sp</dimen>
+    <dimen name="font_title_detail">26sp</dimen>
+    <dimen name="font_subtitle">16sp</dimen>
+    <dimen name="font_body_large">18sp</dimen>
+    <dimen name="font_body_medium">15sp</dimen>
+    <dimen name="font_body_small">14sp</dimen>
+</resources>

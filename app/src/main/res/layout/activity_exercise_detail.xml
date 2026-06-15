@@ -9,10 +9,11 @@
     tools:context=".ExerciseDetailActivity">
 
     <LinearLayout
+        android:id="@+id/displayContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="@dimen/spacing_large"
         android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,47 +23,60 @@
         <ImageView
             android:id="@+id/ivExerciseImage"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginBottom="20dp"
+            android:layout_height="@dimen/exercise_image_height"
+            android:layout_marginBottom="@dimen/spacing_large"
             android:scaleType="centerCrop"
             android:background="@android:color/darker_gray"
-            android:contentDescription="Imagen del ejercicio" />
+            android:contentDescription="@string/content_desc_exercise_image" />
 
-        <TextView
-            android:id="@+id/tvExerciseName"
-            style="@style/TextStyle.Title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/spacing_tiny">
+
+            <TextView
+                android:id="@+id/tvExerciseName"
+                style="@style/TextStyle.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/font_title_detail"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnEditExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_edit_exercise" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvMuscleGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textAlignment="center"
+            android:layout_marginBottom="@dimen/spacing_medium"
             android:textColor="@color/text_secondary"
-            android:textSize="16sp" />
+            android:textSize="@dimen/font_subtitle" />
 
         <TextView
             android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_medium"
             android:textColor="@color/text"
-            android:textSize="15sp"
+            android:textSize="@dimen/font_body_medium"
             android:lineSpacingMultiplier="1.2" />
 
         <TextView
             android:id="@+id/tvSetsReps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
-            android:textAlignment="center"
+            android:layout_marginBottom="@dimen/spacing_xlarge"
             android:textColor="@color/primary"
-            android:textSize="16sp"
+            android:textSize="@dimen/font_subtitle"
             android:textStyle="bold" />
 
         <View
@@ -71,10 +85,98 @@
             android:layout_weight="1" />
 
         <Button
+            android:id="@+id/btnDeleteExercise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:text="@string/btn_delete_exercise"
+            app:backgroundTint="@color/delete_red"
+            android:textColor="@color/white" />
+
+        <Button
             android:id="@+id/btnBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Volver" />
+            android:text="@string/btn_back" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/editContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvEditTitle"
+            style="@style/TextStyle.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginBottom="@dimen/spacing_xlarge"
+            android:text="Editar Ejercicio"
+            android:textSize="@dimen/font_title_detail"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etEditName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:hint="Nombre"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/etEditDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:hint="Descripción"
+            android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/etEditSets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:hint="Series (opcional)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etEditReps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:hint="Repeticiones/Segundos (opcional)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etEditImageUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:hint="URL de la imagen (opcional)"
+            android:inputType="textUri" />
+
+        <Button
+            android:id="@+id/btnSaveDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:text="Guardar cambios" />
+
+        <Button
+            android:id="@+id/btnCancelEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancelar" />
 
     </LinearLayout>
 

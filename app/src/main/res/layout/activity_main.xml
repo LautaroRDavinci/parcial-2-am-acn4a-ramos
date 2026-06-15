@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="@dimen/spacing_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -26,10 +27,10 @@
             style="@style/TextStyle.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Rutina de hoy"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:text="@string/title_today_routine"
             android:textAlignment="center"
-            android:textSize="36sp"
+            android:textSize="@dimen/font_title_large"
             android:textStyle="bold" />
 
         <TextView
@@ -37,14 +38,15 @@
             style="@style/TextStyle.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="@string/subtitle_daily_exercises" />
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:text="@string/subtitle_daily_exercises"
+            android:textSize="@dimen/font_subtitle" />
 
         <EditText
             android:id="@+id/etExercise"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_medium"
             android:hint="@string/hint_exercise"
             android:inputType="text" />
 
@@ -58,8 +60,8 @@
             android:id="@+id/btnSuggestedRoutine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Rutina sugerida" />
+            android:layout_marginTop="@dimen/spacing_tiny"
+            android:text="@string/btn_suggested_routine" />
 
         <LinearLayout
             android:id="@+id/suggestedOptionsContainer"
@@ -67,25 +69,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone"
-            android:layout_marginTop="8dp">
+            android:background="@color/menu_highlight"
+            android:padding="@dimen/spacing_tiny"
+            android:layout_marginTop="@dimen/spacing_tiny">
 
             <Button
                 android:id="@+id/btnTrenSuperior"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tren superior" />
+                android:text="@string/btn_tren_superior" />
 
             <Button
                 android:id="@+id/btnTrenInferior"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tren inferior" />
+                android:text="@string/btn_tren_inferior" />
 
             <Button
                 android:id="@+id/btnCore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Core" />
+                android:text="@string/btn_core" />
 
         </LinearLayout>
 
@@ -95,7 +99,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/spacing_medium"
         app:layout_constraintTop_toBottomOf="@id/inputLayout"
         app:layout_constraintBottom_toTopOf="@id/navBar"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"/>
+            android:padding="@dimen/spacing_medium"/>
 
     </ScrollView>
 
@@ -118,13 +122,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
-        <Button
-            android:id="@+id/btnNavRutina"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/nav_rutina" />
 
         <Button
             android:id="@+id/btnNavProgreso"

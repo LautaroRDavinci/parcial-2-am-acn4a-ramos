@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="@dimen/spacing_large"
         android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,71 +24,65 @@
             style="@style/TextStyle.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="32dp"
-            android:text="Progreso"
-            android:textSize="32sp"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginBottom="@dimen/spacing_xlarge"
+            android:text="@string/title_progress"
+            android:textSize="@dimen/font_title_large"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvTotalExercises"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="18sp"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:textSize="@dimen/font_body_large"
             android:textColor="@color/text"
-            android:text="Ejercicios totales: 0" />
+            android:text="@string/total_exercises_default" />
 
         <TextView
             android:id="@+id/tvCompletedExercises"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="18sp"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:textSize="@dimen/font_body_large"
             android:textColor="@color/text"
-            android:text="Ejercicios completados: 0" />
+            android:text="@string/completed_exercises_default" />
 
         <TextView
             android:id="@+id/tvPendingExercises"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:textSize="18sp"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:textSize="@dimen/font_body_large"
             android:textColor="@color/text"
-            android:text="Ejercicios pendientes: 0" />
+            android:text="@string/pending_exercises_default" />
 
         <TextView
             android:id="@+id/tvCompletionPercentage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:textSize="18sp"
+            android:layout_marginBottom="@dimen/spacing_xlarge"
+            android:textSize="@dimen/font_body_large"
             android:textColor="@color/text"
-            android:text="Progreso actual: 0%" />
+            android:text="@string/progress_percentage_default" />
 
         <TextView
             android:id="@+id/tvWeeklyGoal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:textSize="18sp"
+            android:layout_marginBottom="@dimen/spacing_xlarge"
+            android:textSize="@dimen/font_body_large"
             android:textColor="@color/primary"
             android:textStyle="bold"
-            android:text="Objetivo semanal: 4 entrenamientos" />
+            android:text="@string/weekly_goal_default" />
 
-        <Button
-            android:id="@+id/btnIncrementWorkout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Sumar entrenamiento" />
 
         <Button
             android:id="@+id/btnResetProgress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Reiniciar progreso" />
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:text="@string/btn_reset_progress" />
 
         <View
             android:layout_width="match_parent"
@@ -99,7 +93,7 @@
             android:id="@+id/btnBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Volver" />
+            android:text="@string/btn_back" />
 
     </LinearLayout>
 

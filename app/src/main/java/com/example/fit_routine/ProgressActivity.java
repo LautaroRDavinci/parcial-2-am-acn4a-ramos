@@ -1,5 +1,6 @@
 package com.example.fit_routine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,11 +15,11 @@ public class ProgressActivity extends AppCompatActivity {
     private TextView tvPendingExercises;
     private TextView tvCompletionPercentage;
     private TextView tvWeeklyGoal;
-    private Button btnIncrementWorkout;
     private Button btnResetProgress;
     private Button btnBack;
 
     private int workoutCount = 0;
+    private int total = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +31,14 @@ public class ProgressActivity extends AppCompatActivity {
         tvPendingExercises = findViewById(R.id.tvPendingExercises);
         tvCompletionPercentage = findViewById(R.id.tvCompletionPercentage);
         tvWeeklyGoal = findViewById(R.id.tvWeeklyGoal);
-        btnIncrementWorkout = findViewById(R.id.btnIncrementWorkout);
         btnResetProgress = findViewById(R.id.btnResetProgress);
         btnBack = findViewById(R.id.btnBack);
 
         // Receive extras from Intent
-        int total = getIntent().getIntExtra("total_exercises", 0);
+        total = getIntent().getIntExtra("total_exercises", 0);
         int completed = getIntent().getIntExtra("completed_exercises", 0);
         int pending = total - completed;
+        workoutCount = getIntent().getIntExtra("workout_count", 0);
 
         tvTotalExercises.setText("Ejercicios totales: " + total);
         tvCompletedExercises.setText("Ejercicios completados: " + completed);
@@ -55,15 +56,19 @@ public class ProgressActivity extends AppCompatActivity {
 
         updateWeeklyGoalText();
 
-        btnIncrementWorkout.setOnClickListener(v -> {
-            workoutCount++;
-            updateWeeklyGoalText();
-        });
-
         btnResetProgress.setOnClickListener(v -> {
-            workoutCount = 0;
-            updateWeeklyGoalText();
-            Toast.makeText(this, "Progreso reiniciado", Toast.LENGTH_SHORT).show();
+            total = 0;
+            tvTotalExercises.setText("Ejercicios totales: 0");
+            tvCompletedExercises.setText("Ejercicios completados: 0");
+            tvPendingExercises.setText("Ejercicios pendientes: 0");
+            tvCompletionPercentage.setText("Agregá ejercicios para ver tu progreso");
+
+            // Return clear signal to MainActivity
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("clear_exercises", true);
+            setResult(RESULT_OK, resultIntent);
+
+            Toast.makeText(this, "Ejercicios de la rutina eliminados", Toast.LENGTH_SHORT).show();
         });
 
         btnBack.setOnClickListener(v -> finish());

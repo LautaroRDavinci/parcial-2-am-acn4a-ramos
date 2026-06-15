@@ -4,10 +4,42 @@
     <string name="subtitle_daily_exercises">Tus ejercicios diarios</string>
     <string name="hint_exercise">Ej: Flexiones, Sentadillas…</string>
     <string name="btn_add_exercise">Agregar ejercicio</string>
-    <string name="nav_rutina">Rutina</string>
+    <string name="btn_suggested_routine">Rutina sugerida</string>
+    <string name="btn_tren_superior">Tren superior</string>
+    <string name="btn_tren_inferior">Tren inferior</string>
+    <string name="btn_core">Core</string>
     <string name="nav_progreso">Progreso</string>
     <string name="nav_perfil">Perfil</string>
     <string name="msg_coming_soon">Próximamente</string>
     <string name="msg_enter_exercise">Ingrese un ejercicio</string>
     <string name="check_prefix">✔ </string>
+
+    <!-- Exercise Details -->
+    <string name="content_desc_exercise_image">Imagen del ejercicio</string>
+    <string name="btn_edit_exercise">Editar</string>
+    <string name="btn_delete_exercise">Eliminar ejercicio</string>
+    <string name="btn_back">Volver</string>
+
+    <!-- Progress Screen -->
+    <string name="title_progress">Progreso</string>
+    <string name="total_exercises_default">Ejercicios totales: 0</string>
+    <string name="completed_exercises_default">Ejercicios completados: 0</string>
+    <string name="pending_exercises_default">Ejercicios pendientes: 0</string>
+    <string name="progress_percentage_default">Agregá ejercicios para ver tu progreso</string>
+    <string name="weekly_goal_default">Objetivo semanal: 4 entrenamientos</string>
+    <string name="btn_increment_workout">Sumar entrenamiento</string>
+    <string name="btn_reset_progress">Reiniciar progreso</string>
+
+    <!-- Profile Screen -->
+    <string name="title_profile">Perfil</string>
+    <string name="profile_username_default">Usuario: Lautaro</string>
+    <string name="profile_goal_default">Objetivo: Mantenerse en forma</string>
+    <string name="profile_level_default">Nivel: Principiante</string>
+    <string name="btn_edit_profile">Editar</string>
+    <string name="btn_save_profile">Guardar</string>
+    <string name="btn_cancel_profile">Cancelar</string>
+    <string name="hint_edit_name">Nombre de usuario</string>
+    <string name="hint_edit_goal">Objetivo (ej: Ganar masa muscular)</string>
+    <string name="hint_edit_level">Nivel (ej: Principiante)</string>
+    <string name="msg_empty_fields">Todos los campos son obligatorios</string>
 </resources>
