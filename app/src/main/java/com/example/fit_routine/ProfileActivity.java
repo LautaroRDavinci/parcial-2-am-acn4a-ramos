@@ -2,6 +2,7 @@ package com.example.fit_routine;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,7 +13,8 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvUserName;
     private TextView tvGoal;
     private TextView tvLevel;
-    private Button btnEditGoal;
+    private EditText etNewGoal;
+    private Button btnSaveGoal;
     private Button btnBack;
 
     @Override
@@ -23,7 +25,8 @@ public class ProfileActivity extends AppCompatActivity {
         tvUserName = findViewById(R.id.tvUserName);
         tvGoal = findViewById(R.id.tvGoal);
         tvLevel = findViewById(R.id.tvLevel);
-        btnEditGoal = findViewById(R.id.btnEditGoal);
+        etNewGoal = findViewById(R.id.etNewGoal);
+        btnSaveGoal = findViewById(R.id.btnSaveGoal);
         btnBack = findViewById(R.id.btnBack);
 
         // Receive extras from Intent
@@ -35,9 +38,16 @@ public class ProfileActivity extends AppCompatActivity {
         tvGoal.setText("Objetivo: " + (goal != null ? goal : ""));
         tvLevel.setText("Nivel: " + (level != null ? level : ""));
 
-        btnEditGoal.setOnClickListener(v -> 
-            Toast.makeText(this, R.string.msg_coming_soon, Toast.LENGTH_SHORT).show()
-        );
+        btnSaveGoal.setOnClickListener(v -> {
+            String newGoal = etNewGoal.getText().toString().trim();
+            if (newGoal.isEmpty()) {
+                Toast.makeText(this, "Ingrese un objetivo", Toast.LENGTH_SHORT).show();
+            } else {
+                tvGoal.setText("Objetivo: " + newGoal);
+                etNewGoal.setText("");
+                Toast.makeText(this, "Objetivo actualizado", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         btnBack.setOnClickListener(v -> finish());
     }

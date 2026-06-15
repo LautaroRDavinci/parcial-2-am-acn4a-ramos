@@ -57,12 +57,20 @@
             android:textColor="@color/text"
             android:text="Nivel: Principiante" />
 
-        <Button
-            android:id="@+id/btnEditGoal"
+        <EditText
+            android:id="@+id/etNewGoal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Editar objetivo" />
+            android:hint="Ej: Ganar masa muscular..."
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnSaveGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Guardar objetivo" />
 
         <View
             android:layout_width="match_parent"
