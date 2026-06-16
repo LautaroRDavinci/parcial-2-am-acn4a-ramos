@@ -20,6 +20,7 @@ public class ProgressActivity extends AppCompatActivity {
 
     private int workoutCount = 0;
     private int total = 0;
+    private Intent resultIntent = new Intent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,10 @@ public class ProgressActivity extends AppCompatActivity {
 
         updateWeeklyGoalText();
 
+        if (workoutCount >= 4) {
+            showWeeklyGoalCompletionDialog();
+        }
+
         btnResetProgress.setOnClickListener(v -> {
             total = 0;
             tvTotalExercises.setText("Ejercicios totales: 0");
@@ -64,7 +69,6 @@ public class ProgressActivity extends AppCompatActivity {
             tvCompletionPercentage.setText("Agregá ejercicios para ver tu progreso");
 
             // Return clear signal to MainActivity
-            Intent resultIntent = new Intent();
             resultIntent.putExtra("clear_exercises", true);
             setResult(RESULT_OK, resultIntent);
 
@@ -76,5 +80,19 @@ public class ProgressActivity extends AppCompatActivity {
 
     private void updateWeeklyGoalText() {
         tvWeeklyGoal.setText("Objetivo semanal: 4 entrenamientos\nEntrenamientos completados: " + workoutCount);
+    }
+
+    private void showWeeklyGoalCompletionDialog() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("¡Objetivo Semanal Cumplido!")
+                .setMessage("¡Felicitaciones! Has completado tu objetivo semanal de 4 entrenamientos.")
+                .setPositiveButton("Aceptar", (dialog, which) -> {
+                    workoutCount = 0;
+                    updateWeeklyGoalText();
+                    resultIntent.putExtra("reset_workouts", true);
+                    setResult(RESULT_OK, resultIntent);
+                })
+                .setCancelable(false)
+                .show();
     }
 }

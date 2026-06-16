@@ -369,6 +369,10 @@ public class MainActivity extends AppCompatActivity {
                 currentExercises.clear();
                 renderExercises();
             }
+            boolean resetWorkouts = data.getBooleanExtra("reset_workouts", false);
+            if (resetWorkouts) {
+                completedWorkouts = 0;
+            }
         } else if (requestCode == REQUEST_CODE_PROFILE && resultCode == RESULT_OK && data != null) {
             userName = data.getStringExtra("user_name");
             userGoal = data.getStringExtra("user_goal");
