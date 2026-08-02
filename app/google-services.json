@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "640737778959",
+    "project_id": "fit-routine-cd5fb",
+    "storage_bucket": "fit-routine-cd5fb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640737778959:android:cfa8760f073b96c992b27a",
+        "android_client_info": {
+          "package_name": "com.example.fit_routine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640737778959-pkbd84fac0c8ksom7mn042tp02trh3fb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh0LPhaD3cyu9jTUrdSp7vhD6e1Qf_7Y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640737778959-pkbd84fac0c8ksom7mn042tp02trh3fb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
