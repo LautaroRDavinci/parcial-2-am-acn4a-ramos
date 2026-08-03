@@ -1,6 +1,7 @@
 package com.example.fit_routine.models;
 
 public class Exercise {
+    private String id;
     private String name;
     private String description;
     private String muscleGroup;
@@ -21,6 +22,14 @@ public class Exercise {
         this.sets = sets;
         this.reps = reps;
         this.completed = false;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

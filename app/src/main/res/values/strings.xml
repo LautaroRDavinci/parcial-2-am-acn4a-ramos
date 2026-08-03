@@ -63,4 +63,6 @@
     <string name="hint_edit_goal">Objetivo (ej: Ganar masa muscular)</string>
     <string name="hint_edit_level">Nivel (ej: Principiante)</string>
     <string name="msg_empty_fields">Todos los campos son obligatorios</string>
+    <string name="msg_profile_updated">Perfil actualizado</string>
+    <string name="msg_sync_error">No pudimos sincronizar con la nube</string>
 </resources>

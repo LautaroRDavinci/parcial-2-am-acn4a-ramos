@@ -16,9 +16,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.fit_routine.data.UserRepository;
 import com.example.fit_routine.models.Exercise;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.fit_routine.models.UserProfile;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private String userName = "";
     private String userGoal = "Ganar fuerza y constancia";
     private String userLevel = "Principiante";
+
+    private UserRepository repository;
 
     private EditText etExercise;
     private Button btnAddExercise;
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        loadUserName();
+        repository = new UserRepository();
 
         etExercise = findViewById(R.id.etExercise);
         btnAddExercise = findViewById(R.id.btnAddExercise);
@@ -93,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 currentExercises.add(manualEx);
                 renderExercises();
                 etExercise.setText("");
+                repository.saveExercise(manualEx, currentExercises.size() - 1);
             }
         });
 
@@ -112,20 +116,60 @@ public class MainActivity extends AppCompatActivity {
         btnCore.setOnClickListener(v -> loadSuggestedRoutine("core"));
 
         renderExercises();
+        loadUserData();
+        loadSavedRoutine();
     }
 
-    private void loadUserName() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) {
+    private void loadUserData() {
+        if (!repository.hasSession()) {
             return;
         }
 
-        // las cuentas de correo cargan el nombre al registrarse, las de Google ya lo traen
-        if (user.getDisplayName() != null && !user.getDisplayName().isEmpty()) {
-            userName = user.getDisplayName();
-        } else {
-            userName = user.getEmail();
+        // el nombre de la cuenta es el valor inicial hasta que llegue el documento del perfil
+        userName = repository.getDisplayName() != null ? repository.getDisplayName() : repository.getEmail();
+
+        repository.loadProfile()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        applyProfile(document);
+                    } else {
+                        repository.saveProfile(userName, userGoal, userLevel);
+                    }
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, R.string.msg_sync_error, Toast.LENGTH_SHORT).show());
+    }
+
+    private void applyProfile(DocumentSnapshot document) {
+        UserProfile profile = UserRepository.toProfile(document);
+
+        if (profile.getName() != null) {
+            userName = profile.getName();
         }
+        if (profile.getGoal() != null) {
+            userGoal = profile.getGoal();
+        }
+        if (profile.getLevel() != null) {
+            userLevel = profile.getLevel();
+        }
+        completedWorkouts = profile.getWorkoutCount();
+    }
+
+    private void loadSavedRoutine() {
+        if (!repository.hasSession()) {
+            return;
+        }
+
+        repository.loadRoutine()
+                .addOnSuccessListener(snapshot -> {
+                    currentExercises.clear();
+                    for (DocumentSnapshot document : snapshot.getDocuments()) {
+                        currentExercises.add(UserRepository.toExercise(document));
+                    }
+                    renderExercises();
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, R.string.msg_sync_error, Toast.LENGTH_SHORT).show());
     }
 
     private void renderExercises() {
@@ -228,10 +272,12 @@ public class MainActivity extends AppCompatActivity {
             boolean wasFullyCompleted = (totalExercises > 0 && completedExercises == totalExercises);
             exercise.setCompleted(!exercise.isCompleted());
             renderExercises();
+            repository.saveExercise(exercise, index);
             boolean isFullyCompleted = (totalExercises > 0 && completedExercises == totalExercises);
 
             if (!wasFullyCompleted && isFullyCompleted) {
                 completedWorkouts++;
+                repository.saveWorkoutCount(completedWorkouts);
                 showCompletionDialog();
             }
         });
@@ -338,6 +384,7 @@ public class MainActivity extends AppCompatActivity {
                     currentExercises.clear();
                     currentExercises.addAll(routine);
                     renderExercises();
+                    repository.replaceRoutine(currentExercises);
                     Toast.makeText(MainActivity.this, "Rutina sugerida cargada", Toast.LENGTH_SHORT).show();
                 });
             } catch (Exception e) {
@@ -357,8 +404,11 @@ public class MainActivity extends AppCompatActivity {
             if (index >= 0 && index < currentExercises.size()) {
                 boolean deleteExercise = data.getBooleanExtra("delete_exercise", false);
                 if (deleteExercise) {
-                    currentExercises.remove(index);
+                    Exercise removed = currentExercises.remove(index);
                     renderExercises();
+                    if (removed.getId() != null) {
+                        repository.deleteExercise(removed.getId());
+                    }
                 } else {
                     Exercise ex = currentExercises.get(index);
                     ex.setName(data.getStringExtra("exercise_name"));
@@ -379,6 +429,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     renderExercises();
+                    repository.saveExercise(ex, index);
                 }
             }
         } else if (requestCode == REQUEST_CODE_PROGRESS && resultCode == RESULT_OK && data != null) {
@@ -386,10 +437,12 @@ public class MainActivity extends AppCompatActivity {
             if (clearExercises) {
                 currentExercises.clear();
                 renderExercises();
+                repository.clearRoutine();
             }
             boolean resetWorkouts = data.getBooleanExtra("reset_workouts", false);
             if (resetWorkouts) {
                 completedWorkouts = 0;
+                repository.saveWorkoutCount(completedWorkouts);
             }
         } else if (requestCode == REQUEST_CODE_PROFILE && resultCode == RESULT_OK && data != null) {
             userName = data.getStringExtra("user_name");

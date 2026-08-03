@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fit_routine.data.UserRepository;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
     private Button btnLogout;
     private Button btnBack;
 
+    private UserRepository repository;
+
     private String currentName;
     private String currentGoal;
     private String currentLevel;
@@ -42,6 +45,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        repository = new UserRepository();
 
         tvUserName = findViewById(R.id.tvUserName);
         tvGoal = findViewById(R.id.tvGoal);
@@ -113,13 +118,25 @@ public class ProfileActivity extends AppCompatActivity {
                 data.putExtra("user_level", currentLevel);
                 setResult(RESULT_OK, data);
 
-                Toast.makeText(this, "Perfil actualizado", Toast.LENGTH_SHORT).show();
+                saveProfileToDatabase();
             }
         });
 
         btnLogout.setOnClickListener(v -> logout());
 
         btnBack.setOnClickListener(v -> finish());
+    }
+
+    private void saveProfileToDatabase() {
+        if (!repository.hasSession()) {
+            return;
+        }
+
+        repository.saveProfile(currentName, currentGoal, currentLevel)
+                .addOnSuccessListener(unused ->
+                        Toast.makeText(this, R.string.msg_profile_updated, Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, R.string.msg_sync_error, Toast.LENGTH_SHORT).show());
     }
 
     private void logout() {
