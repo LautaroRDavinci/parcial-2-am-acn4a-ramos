@@ -21,6 +21,7 @@
     <string name="msg_password_mismatch">Las contraseñas no coinciden</string>
     <string name="msg_google_error">No pudimos ingresar con Google</string>
     <string name="msg_logout_ok">Sesión cerrada</string>
+
     <string name="title_today_routine">Rutina de hoy</string>
     <string name="subtitle_daily_exercises">Tus ejercicios diarios</string>
     <string name="hint_exercise">Ej: Flexiones, Sentadillas…</string>
@@ -34,12 +35,29 @@
     <string name="msg_coming_soon">Próximamente</string>
     <string name="msg_enter_exercise">Ingrese un ejercicio</string>
     <string name="check_prefix">✔ </string>
+    <string name="btn_check">✔</string>
+    <string name="btn_view_detail">Ver detalle</string>
+    <string name="btn_suggested_routine_collapsed">Rutina sugerida ▼</string>
+    <string name="btn_suggested_routine_expanded">Rutina sugerida ▲</string>
+    <string name="label_sets_reps">Series: %1$d - Repeticiones: %2$d</string>
+    <string name="msg_suggested_routine_loaded">Rutina sugerida cargada</string>
+    <string name="msg_suggested_routine_error">No pudimos cargar la rutina sugerida</string>
+
+    <!-- Daily goal dialog -->
+    <string name="dialog_daily_goal_title">¡Felicitaciones!</string>
+    <string name="dialog_daily_goal_message">Completaste todos los ejercicios de tu rutina</string>
+    <string name="dialog_go_to_progress">Ir a progreso</string>
+    <string name="dialog_back">Volver</string>
+    <string name="dialog_accept">Aceptar</string>
 
     <!-- Exercise Details -->
     <string name="content_desc_exercise_image">Imagen del ejercicio</string>
     <string name="btn_edit_exercise">Editar</string>
     <string name="btn_delete_exercise">Eliminar ejercicio</string>
     <string name="btn_back">Volver</string>
+    <string name="msg_enter_exercise_name">Ingresá un nombre para el ejercicio</string>
+    <string name="msg_sets_reps_numeric">Las series y repeticiones deben ser números</string>
+    <string name="msg_exercise_updated">Ejercicio actualizado</string>
 
     <!-- Progress Screen -->
     <string name="title_progress">Progreso</string>
@@ -50,12 +68,24 @@
     <string name="weekly_goal_default">Objetivo semanal: 4 entrenamientos</string>
     <string name="btn_increment_workout">Sumar entrenamiento</string>
     <string name="btn_reset_progress">Reiniciar progreso</string>
+    <string name="label_total_exercises">Ejercicios totales: %1$d</string>
+    <string name="label_completed_exercises">Ejercicios completados: %1$d</string>
+    <string name="label_pending_exercises">Ejercicios pendientes: %1$d</string>
+    <string name="label_progress_percentage">Progreso actual: %1$d%%</string>
+    <string name="label_weekly_goal">Objetivo semanal: %1$d entrenamientos\nEntrenamientos completados: %2$d</string>
+    <string name="msg_routine_completed">Rutina completada</string>
+    <string name="msg_routine_cleared">Ejercicios de la rutina eliminados</string>
+    <string name="dialog_weekly_goal_title">¡Objetivo semanal cumplido!</string>
+    <string name="dialog_weekly_goal_message">Completaste tus 4 entrenamientos de la semana</string>
 
     <!-- Profile Screen -->
     <string name="title_profile">Perfil</string>
     <string name="profile_username_default">Usuario:</string>
-    <string name="profile_goal_default">Objetivo: Mantenerse en forma</string>
-    <string name="profile_level_default">Nivel: Principiante</string>
+    <string name="profile_goal_default">Objetivo:</string>
+    <string name="profile_level_default">Nivel:</string>
+    <string name="label_profile_username">Usuario: %1$s</string>
+    <string name="label_profile_goal">Objetivo: %1$s</string>
+    <string name="label_profile_level">Nivel: %1$s</string>
     <string name="btn_edit_profile">Editar</string>
     <string name="btn_save_profile">Guardar</string>
     <string name="btn_cancel_profile">Cancelar</string>

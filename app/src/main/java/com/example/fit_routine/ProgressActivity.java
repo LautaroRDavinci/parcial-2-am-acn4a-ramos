@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ProgressActivity extends AppCompatActivity {
 
+    private static final int WEEKLY_GOAL = 4;
+
     private TextView tvTotalExercises;
     private TextView tvCompletedExercises;
     private TextView tvPendingExercises;
@@ -35,58 +37,58 @@ public class ProgressActivity extends AppCompatActivity {
         btnResetProgress = findViewById(R.id.btnResetProgress);
         btnBack = findViewById(R.id.btnBack);
 
-        // Receive extras from Intent
         total = getIntent().getIntExtra("total_exercises", 0);
         int completed = getIntent().getIntExtra("completed_exercises", 0);
         int pending = total - completed;
         workoutCount = getIntent().getIntExtra("workout_count", 0);
 
-        tvTotalExercises.setText("Ejercicios totales: " + total);
-        tvCompletedExercises.setText("Ejercicios completados: " + completed);
-        tvPendingExercises.setText("Ejercicios pendientes: " + pending);
+        updateCounters(total, completed, pending);
 
         if (total == 0) {
-            tvCompletionPercentage.setText("Agregá ejercicios para ver tu progreso");
+            tvCompletionPercentage.setText(R.string.progress_percentage_default);
         } else if (completed == total) {
-            tvCompletionPercentage.setText("Rutina completada");
-            Toast.makeText(this, "Rutina completada", Toast.LENGTH_SHORT).show();
+            tvCompletionPercentage.setText(R.string.msg_routine_completed);
+            Toast.makeText(this, R.string.msg_routine_completed, Toast.LENGTH_SHORT).show();
         } else {
             int percentage = (completed * 100) / total;
-            tvCompletionPercentage.setText("Progreso actual: " + percentage + "%");
+            tvCompletionPercentage.setText(getString(R.string.label_progress_percentage, percentage));
         }
 
         updateWeeklyGoalText();
 
-        if (workoutCount >= 4) {
+        if (workoutCount >= WEEKLY_GOAL) {
             showWeeklyGoalCompletionDialog();
         }
 
         btnResetProgress.setOnClickListener(v -> {
             total = 0;
-            tvTotalExercises.setText("Ejercicios totales: 0");
-            tvCompletedExercises.setText("Ejercicios completados: 0");
-            tvPendingExercises.setText("Ejercicios pendientes: 0");
-            tvCompletionPercentage.setText("Agregá ejercicios para ver tu progreso");
+            updateCounters(0, 0, 0);
+            tvCompletionPercentage.setText(R.string.progress_percentage_default);
 
-            // Return clear signal to MainActivity
             resultIntent.putExtra("clear_exercises", true);
             setResult(RESULT_OK, resultIntent);
 
-            Toast.makeText(this, "Ejercicios de la rutina eliminados", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.msg_routine_cleared, Toast.LENGTH_SHORT).show();
         });
 
         btnBack.setOnClickListener(v -> finish());
     }
 
+    private void updateCounters(int total, int completed, int pending) {
+        tvTotalExercises.setText(getString(R.string.label_total_exercises, total));
+        tvCompletedExercises.setText(getString(R.string.label_completed_exercises, completed));
+        tvPendingExercises.setText(getString(R.string.label_pending_exercises, pending));
+    }
+
     private void updateWeeklyGoalText() {
-        tvWeeklyGoal.setText("Objetivo semanal: 4 entrenamientos\nEntrenamientos completados: " + workoutCount);
+        tvWeeklyGoal.setText(getString(R.string.label_weekly_goal, WEEKLY_GOAL, workoutCount));
     }
 
     private void showWeeklyGoalCompletionDialog() {
         new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("¡Objetivo Semanal Cumplido!")
-                .setMessage("¡Felicitaciones! Has completado tu objetivo semanal de 4 entrenamientos.")
-                .setPositiveButton("Aceptar", (dialog, which) -> {
+                .setTitle(R.string.dialog_weekly_goal_title)
+                .setMessage(R.string.dialog_weekly_goal_message)
+                .setPositiveButton(R.string.dialog_accept, (dialog, which) -> {
                     workoutCount = 0;
                     updateWeeklyGoalText();
                     resultIntent.putExtra("reset_workouts", true);

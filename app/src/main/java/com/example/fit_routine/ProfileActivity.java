@@ -65,16 +65,12 @@ public class ProfileActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btnLogout);
         btnBack = findViewById(R.id.btnBack);
 
-        // Receive extras from Intent
         currentName = getIntent().getStringExtra("user_name");
         currentGoal = getIntent().getStringExtra("user_goal");
         currentLevel = getIntent().getStringExtra("user_level");
 
-        tvUserName.setText("Usuario: " + (currentName != null ? currentName : ""));
-        tvGoal.setText("Objetivo: " + (currentGoal != null ? currentGoal : ""));
-        tvLevel.setText("Nivel: " + (currentLevel != null ? currentLevel : ""));
+        showProfile();
 
-        // Setup Edit Profile Button
         btnEditProfile.setOnClickListener(v -> {
             etEditName.setText(currentName);
             etEditGoal.setText(currentGoal);
@@ -84,13 +80,11 @@ public class ProfileActivity extends AppCompatActivity {
             layoutEdit.setVisibility(View.VISIBLE);
         });
 
-        // Setup Cancel Button
         btnCancelProfile.setOnClickListener(v -> {
             layoutEdit.setVisibility(View.GONE);
             layoutDisplay.setVisibility(View.VISIBLE);
         });
 
-        // Setup Save Button
         btnSaveProfile.setOnClickListener(v -> {
             String newName = etEditName.getText().toString().trim();
             String newGoal = etEditGoal.getText().toString().trim();
@@ -103,15 +97,11 @@ public class ProfileActivity extends AppCompatActivity {
                 currentGoal = newGoal;
                 currentLevel = newLevel;
 
-                tvUserName.setText("Usuario: " + currentName);
-                tvGoal.setText("Objetivo: " + currentGoal);
-                tvLevel.setText("Nivel: " + currentLevel);
+                showProfile();
 
-                // Toggle visibility
                 layoutEdit.setVisibility(View.GONE);
                 layoutDisplay.setVisibility(View.VISIBLE);
 
-                // Return data to MainActivity
                 Intent data = new Intent();
                 data.putExtra("user_name", currentName);
                 data.putExtra("user_goal", currentGoal);
@@ -125,6 +115,12 @@ public class ProfileActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(v -> logout());
 
         btnBack.setOnClickListener(v -> finish());
+    }
+
+    private void showProfile() {
+        tvUserName.setText(getString(R.string.label_profile_username, currentName != null ? currentName : ""));
+        tvGoal.setText(getString(R.string.label_profile_goal, currentGoal != null ? currentGoal : ""));
+        tvLevel.setText(getString(R.string.label_profile_level, currentLevel != null ? currentLevel : ""));
     }
 
     private void saveProfileToDatabase() {

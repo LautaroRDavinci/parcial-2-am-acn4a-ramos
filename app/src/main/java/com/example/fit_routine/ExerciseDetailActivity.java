@@ -1,8 +1,6 @@
 package com.example.fit_routine;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,11 +12,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 
 public class ExerciseDetailActivity extends AppCompatActivity {
+
+    // varios sitios de imágenes rechazan los pedidos que no parecen venir de un navegador
+    private static final String IMAGE_USER_AGENT =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                    + "(KHTML, like Gecko) Chrome/100.0.0.0 Safari/537.36";
 
     private ImageView ivExerciseImage;
     private TextView tvExerciseName;
@@ -51,7 +54,6 @@ public class ExerciseDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_detail);
 
-        // Bind Display Views
         displayContainer = findViewById(R.id.displayContainer);
         ivExerciseImage = findViewById(R.id.ivExerciseImage);
         tvExerciseName = findViewById(R.id.tvExerciseName);
@@ -62,7 +64,6 @@ public class ExerciseDetailActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         btnDeleteExercise = findViewById(R.id.btnDeleteExercise);
 
-        // Bind Edit Views
         editContainer = findViewById(R.id.editContainer);
         etEditName = findViewById(R.id.etEditName);
         etEditDescription = findViewById(R.id.etEditDescription);
@@ -72,7 +73,6 @@ public class ExerciseDetailActivity extends AppCompatActivity {
         btnSaveDetail = findViewById(R.id.btnSaveDetail);
         btnCancelEdit = findViewById(R.id.btnCancelEdit);
 
-        // Get extras from Intent
         exerciseIndex = getIntent().getIntExtra("exercise_index", -1);
         String name = getIntent().getStringExtra("exercise_name");
         String description = getIntent().getStringExtra("exercise_description");
@@ -98,7 +98,6 @@ public class ExerciseDetailActivity extends AppCompatActivity {
             finish();
         });
 
-        // Toggle Edit Mode
         btnEditExercise.setOnClickListener(v -> {
             etEditName.setText(tvExerciseName.getText().toString());
             etEditDescription.setText(tvDescription.getText().toString());
@@ -123,7 +122,7 @@ public class ExerciseDetailActivity extends AppCompatActivity {
             String updatedImageUrl = etEditImageUrl.getText().toString().trim();
 
             if (updatedName.isEmpty()) {
-                Toast.makeText(this, "Ingrese un nombre", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.msg_enter_exercise_name, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -137,7 +136,7 @@ public class ExerciseDetailActivity extends AppCompatActivity {
                     updatedReps = Integer.parseInt(updatedRepsStr);
                 }
             } catch (NumberFormatException e) {
-                Toast.makeText(this, "Las series y repeticiones deben ser números", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.msg_sets_reps_numeric, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -147,7 +146,6 @@ public class ExerciseDetailActivity extends AppCompatActivity {
 
             updateDisplayViews(updatedName, updatedDesc, currentSets, currentReps);
 
-            // Prepare result Intent to send edits back to MainActivity
             Intent resultIntent = new Intent();
             resultIntent.putExtra("exercise_index", exerciseIndex);
             resultIntent.putExtra("exercise_name", updatedName);
@@ -165,7 +163,7 @@ public class ExerciseDetailActivity extends AppCompatActivity {
             editContainer.setVisibility(View.GONE);
             displayContainer.setVisibility(View.VISIBLE);
 
-            Toast.makeText(this, "Objetivo actualizado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.msg_exercise_updated, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -175,7 +173,7 @@ public class ExerciseDetailActivity extends AppCompatActivity {
         tvMuscleGroup.setText(muscleGroup != null ? muscleGroup : "");
 
         if (sets != null && reps != null) {
-            tvSetsReps.setText("Series: " + sets + " - Repeticiones: " + reps);
+            tvSetsReps.setText(getString(R.string.label_sets_reps, sets, reps));
             tvSetsReps.setVisibility(View.VISIBLE);
         } else {
             tvSetsReps.setVisibility(View.GONE);
@@ -184,29 +182,19 @@ public class ExerciseDetailActivity extends AppCompatActivity {
         if (currentImageUrl != null && !currentImageUrl.isEmpty()) {
             loadImageFromUrl(currentImageUrl);
         } else {
-            ivExerciseImage.setImageBitmap(null);
-            ivExerciseImage.setBackgroundColor(android.graphics.Color.LTGRAY);
+            ivExerciseImage.setImageResource(R.drawable.bg_exercise_placeholder);
         }
     }
 
     private void loadImageFromUrl(String urlString) {
-        new Thread(() -> {
-            try {
-                URL url = new URL(urlString);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.0.0 Safari/537.36");
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                runOnUiThread(() -> ivExerciseImage.setImageBitmap(myBitmap));
-            } catch (Exception e) {
-                e.printStackTrace();
-                runOnUiThread(() -> {
-                    ivExerciseImage.setImageBitmap(null);
-                    ivExerciseImage.setBackgroundColor(android.graphics.Color.LTGRAY);
-                });
-            }
-        }).start();
+        GlideUrl url = new GlideUrl(urlString, new LazyHeaders.Builder()
+                .addHeader("User-Agent", IMAGE_USER_AGENT)
+                .build());
+
+        Glide.with(this)
+                .load(url)
+                .placeholder(R.drawable.bg_exercise_placeholder)
+                .error(R.drawable.bg_exercise_placeholder)
+                .into(ivExerciseImage);
     }
 }

@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText etExercise;
     private Button btnAddExercise;
     private LinearLayout exerciseContainer;
+    private Button btnSuggestedRoutine;
+    private LinearLayout suggestedOptionsContainer;
     
     private List<Exercise> currentExercises = new ArrayList<>();
     private int totalExercises = 0;
@@ -65,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         etExercise = findViewById(R.id.etExercise);
         btnAddExercise = findViewById(R.id.btnAddExercise);
         exerciseContainer = findViewById(R.id.exerciseContainer);
-        Button btnSuggestedRoutine = findViewById(R.id.btnSuggestedRoutine);
-        LinearLayout suggestedOptionsContainer = findViewById(R.id.suggestedOptionsContainer);
+        btnSuggestedRoutine = findViewById(R.id.btnSuggestedRoutine);
+        suggestedOptionsContainer = findViewById(R.id.suggestedOptionsContainer);
         Button btnTrenSuperior = findViewById(R.id.btnTrenSuperior);
         Button btnTrenInferior = findViewById(R.id.btnTrenInferior);
         Button btnCore = findViewById(R.id.btnCore);
@@ -100,14 +102,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // suggested routine collapsible menu with visual indicator
         btnSuggestedRoutine.setOnClickListener(v -> {
             if (suggestedOptionsContainer.getVisibility() == View.GONE) {
                 suggestedOptionsContainer.setVisibility(View.VISIBLE);
-                btnSuggestedRoutine.setText("Rutina sugerida ▲");
+                btnSuggestedRoutine.setText(R.string.btn_suggested_routine_expanded);
             } else {
-                suggestedOptionsContainer.setVisibility(View.GONE);
-                btnSuggestedRoutine.setText("Rutina sugerida ▼");
+                collapseSuggestedOptions();
             }
         });
 
@@ -189,16 +189,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void showCompletionDialog() {
         new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("¡Felicitaciones!")
-                .setMessage("¡Has completado todos los ejercicios de tu rutina!")
-                .setPositiveButton("Ir a progreso", (dialog, which) -> {
+                .setTitle(R.string.dialog_daily_goal_title)
+                .setMessage(R.string.dialog_daily_goal_message)
+                .setPositiveButton(R.string.dialog_go_to_progress, (dialog, which) -> {
                     Intent intent = new Intent(MainActivity.this, ProgressActivity.class);
                     intent.putExtra("total_exercises", totalExercises);
                     intent.putExtra("completed_exercises", completedExercises);
                     intent.putExtra("workout_count", completedWorkouts);
                     startActivityForResult(intent, REQUEST_CODE_PROGRESS);
                 })
-                .setNegativeButton("Volver", null)
+                .setNegativeButton(R.string.dialog_back, null)
                 .show();
     }
 
@@ -214,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
         itemLayout.setLayoutParams(params);
         itemLayout.setPadding(32, 32, 32, 32);
 
-        // Styling based on completed state
         if (exercise.isCompleted()) {
             itemLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.menu_highlight));
         } else {
@@ -239,12 +238,11 @@ public class MainActivity extends AppCompatActivity {
         tvMuscle.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
         tvMuscle.setPadding(0, 8, 0, 16);
 
-        // Action Buttons Row (Ver detalle & Check button)
         LinearLayout actionContainer = new LinearLayout(this);
         actionContainer.setOrientation(LinearLayout.HORIZONTAL);
 
         Button btnDetail = new Button(this);
-        btnDetail.setText("Ver detalle");
+        btnDetail.setText(R.string.btn_view_detail);
         btnDetail.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ExerciseDetailActivity.class);
             intent.putExtra("exercise_index", index);
@@ -260,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button btnCheck = new Button(this);
-        btnCheck.setText("✔");
+        btnCheck.setText(R.string.btn_check);
         if (exercise.isCompleted()) {
             btnCheck.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_light));
             btnCheck.setTextColor(ContextCompat.getColor(this, R.color.white));
@@ -306,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
         if (exercise.getSets() != null && exercise.getReps() != null) {
             tvMuscle.setPadding(0, 8, 0, 4);
             TextView tvSetsReps = new TextView(this);
-            tvSetsReps.setText("Series: " + exercise.getSets() + " - Repeticiones: " + exercise.getReps());
+            tvSetsReps.setText(getString(R.string.label_sets_reps, exercise.getSets(), exercise.getReps()));
             tvSetsReps.setTextSize(14);
             tvSetsReps.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
             tvSetsReps.setPadding(0, 0, 0, 16);
@@ -318,44 +316,15 @@ public class MainActivity extends AppCompatActivity {
         exerciseContainer.addView(itemLayout);
     }
 
-    private void loadExercisesFromJson() {
-        new Thread(() -> {
-            try {
-                InputStream is = getAssets().open("exercises.json");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                String json = new String(buffer, "UTF-8");
-
-                JSONArray jsonArray = new JSONArray(json);
-                List<Exercise> exercises = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject obj = jsonArray.getJSONObject(i);
-                    String name = obj.getString("name");
-                    String desc = obj.getString("description");
-                    String muscle = obj.getString("muscleGroup");
-                    String img = obj.getString("imageUrl");
-                    Integer sets = obj.has("sets") ? obj.getInt("sets") : null;
-                    Integer reps = obj.has("reps") ? obj.getInt("reps") : null;
-                    exercises.add(new Exercise(name, desc, muscle, img, sets, reps));
-                }
-
-                runOnUiThread(() -> {
-                    currentExercises.clear();
-                    currentExercises.addAll(exercises);
-                    renderExercises();
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-                runOnUiThread(() ->
-                        Toast.makeText(MainActivity.this, "Error al cargar ejercicios", Toast.LENGTH_SHORT).show()
-                );
-            }
-        }).start();
+    private void collapseSuggestedOptions() {
+        suggestedOptionsContainer.setVisibility(View.GONE);
+        btnSuggestedRoutine.setText(R.string.btn_suggested_routine_collapsed);
     }
 
     private void loadSuggestedRoutine(String category) {
+        // se cierra antes de leer el archivo para que el menú no quede abierto mientras carga
+        collapseSuggestedOptions();
+
         new Thread(() -> {
             try {
                 InputStream is = getAssets().open("suggested_routines.json");
@@ -385,12 +354,12 @@ public class MainActivity extends AppCompatActivity {
                     currentExercises.addAll(routine);
                     renderExercises();
                     repository.replaceRoutine(currentExercises);
-                    Toast.makeText(MainActivity.this, "Rutina sugerida cargada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.msg_suggested_routine_loaded, Toast.LENGTH_SHORT).show();
                 });
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() ->
-                        Toast.makeText(MainActivity.this, "Error al cargar la rutina sugerida", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(MainActivity.this, R.string.msg_suggested_routine_error, Toast.LENGTH_SHORT).show()
                 );
             }
         }).start();
