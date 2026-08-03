@@ -11,6 +11,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private TextView tvUserName;
@@ -27,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button btnEditProfile;
     private Button btnSaveProfile;
     private Button btnCancelProfile;
+    private Button btnLogout;
     private Button btnBack;
 
     private String currentName;
@@ -52,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnEditProfile = findViewById(R.id.btnEditProfile);
         btnSaveProfile = findViewById(R.id.btnSaveProfile);
         btnCancelProfile = findViewById(R.id.btnCancelProfile);
+        btnLogout = findViewById(R.id.btnLogout);
         btnBack = findViewById(R.id.btnBack);
 
         // Receive extras from Intent
@@ -111,6 +117,20 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        btnLogout.setOnClickListener(v -> logout());
+
         btnBack.setOnClickListener(v -> finish());
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        // sin esto la cuenta de Google queda cacheada y el próximo login saltea el selector
+        GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN).signOut();
+        Toast.makeText(this, R.string.msg_logout_ok, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        // limpia la pila para que el botón atrás no pueda volver a la rutina
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

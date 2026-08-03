@@ -17,6 +17,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.fit_routine.models.Exercise;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PROGRESS = 1002;
     private static final int REQUEST_CODE_PROFILE = 1003;
 
-    private String userName = "Lautaro";
+    private String userName = "";
     private String userGoal = "Ganar fuerza y constancia";
     private String userLevel = "Principiante";
 
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        loadUserName();
 
         etExercise = findViewById(R.id.etExercise);
         btnAddExercise = findViewById(R.id.btnAddExercise);
@@ -108,6 +112,20 @@ public class MainActivity extends AppCompatActivity {
         btnCore.setOnClickListener(v -> loadSuggestedRoutine("core"));
 
         renderExercises();
+    }
+
+    private void loadUserName() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            return;
+        }
+
+        // las cuentas de correo cargan el nombre al registrarse, las de Google ya lo traen
+        if (user.getDisplayName() != null && !user.getDisplayName().isEmpty()) {
+            userName = user.getDisplayName();
+        } else {
+            userName = user.getEmail();
+        }
     }
 
     private void renderExercises() {

@@ -8,4 +8,8 @@
     <color name="text_secondary">#757575</color>
     <color name="menu_highlight">#EEEEEE</color>
     <color name="delete_red">#D32F2F</color>
+
+    <!-- Google brand guidelines for the sign-in button -->
+    <color name="google_button_text">#1F1F1F</color>
+    <color name="google_button_stroke">#747775</color>
 </resources>

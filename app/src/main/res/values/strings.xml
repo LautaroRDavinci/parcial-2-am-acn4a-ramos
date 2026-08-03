@@ -1,5 +1,26 @@
 <resources>
     <string name="app_name">Fit-Routine</string>
+
+    <!-- Login and Register -->
+    <string name="subtitle_login">Entrá para ver tu rutina</string>
+    <string name="title_register">Crear cuenta</string>
+    <string name="subtitle_register">Empezá a registrar tus entrenamientos</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_confirm_password">Repetir contraseña</string>
+    <string name="btn_login">Ingresar</string>
+    <string name="btn_register">Registrarme</string>
+    <string name="btn_google_login">Continuar con Google</string>
+    <string name="btn_logout">Cerrar sesión</string>
+    <string name="link_go_to_register">¿No tenés cuenta? Registrate</string>
+    <string name="msg_login_ok">Sesión iniciada</string>
+    <string name="msg_login_error">No pudimos ingresar, revisá tu correo y contraseña</string>
+    <string name="msg_register_ok">Cuenta creada</string>
+    <string name="msg_register_error">No pudimos crear la cuenta, probá con otro correo</string>
+    <string name="msg_password_short">La contraseña necesita al menos 6 caracteres</string>
+    <string name="msg_password_mismatch">Las contraseñas no coinciden</string>
+    <string name="msg_google_error">No pudimos ingresar con Google</string>
+    <string name="msg_logout_ok">Sesión cerrada</string>
     <string name="title_today_routine">Rutina de hoy</string>
     <string name="subtitle_daily_exercises">Tus ejercicios diarios</string>
     <string name="hint_exercise">Ej: Flexiones, Sentadillas…</string>
@@ -32,7 +53,7 @@
 
     <!-- Profile Screen -->
     <string name="title_profile">Perfil</string>
-    <string name="profile_username_default">Usuario: Lautaro</string>
+    <string name="profile_username_default">Usuario:</string>
     <string name="profile_goal_default">Objetivo: Mantenerse en forma</string>
     <string name="profile_level_default">Nivel: Principiante</string>
     <string name="btn_edit_profile">Editar</string>

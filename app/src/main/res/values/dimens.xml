@@ -27,4 +27,10 @@
     <dimen name="nav_button_margin">6dp</dimen>
     <dimen name="nav_bar_padding">8dp</dimen>
     <dimen name="font_nav_button">16sp</dimen>
+
+    <!-- Google sign-in button -->
+    <dimen name="google_button_height">48dp</dimen>
+    <dimen name="google_button_radius">4dp</dimen>
+    <dimen name="google_button_stroke">1dp</dimen>
+    <dimen name="google_icon_size">20dp</dimen>
 </resources>
