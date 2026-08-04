@@ -1,7 +1,7 @@
 # Informe de pantallas — Fit-Routine
 
 Aplicaciones Móviles — Comisión ACN4A
-Repositorio: https://github.com/LautaroRDavinci/parcial-2-am-acn4a-ramos
+Repositorio: https://github.com/LautaroRDavinci/final-am-acn4a-ramos
 
 Este informe describe cada pantalla de la aplicación: qué se ve, qué se puede hacer y cómo es el recorrido del usuario. Las capturas son de la app corriendo en el emulador.
 

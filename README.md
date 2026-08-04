@@ -205,7 +205,7 @@ Los integrantes del grupo realizamos commits convencionales a lo largo del desar
 
 El informe describe cada pantalla con sus funcionalidades, su flujo de uso y la captura correspondiente.
 
-- **Para descargar**: [informe-pantallas.pdf](https://github.com/LautaroRDavinci/parcial-2-am-acn4a-ramos/raw/main/docs/informe-pantallas.pdf)
+- **Para descargar**: [informe-pantallas.pdf](https://github.com/LautaroRDavinci/final-am-acn4a-ramos/raw/main/docs/informe-pantallas.pdf)
 - **Para leer acá mismo**: [docs/informe.md](docs/informe.md)
 
 Las capturas sueltas están en [docs/capturas](docs/capturas).
